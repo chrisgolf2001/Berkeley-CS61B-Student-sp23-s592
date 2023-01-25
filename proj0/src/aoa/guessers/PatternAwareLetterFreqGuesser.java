@@ -79,16 +79,15 @@ public class PatternAwareLetterFreqGuesser implements Guesser {
         }
         System.out.println(allChar);
 
+        Collections.sort(allChar);
         for(int t = 0; t < allChar.size() ; t++){
-            for(int o = 0; t < allChar.size() ; o++){
+            for(int o = 0; o < allChar.size() ; o++){
                 if(allChar.get(t) == allChar.get(o) && !ifGuessed(g, allChar.get(t)) ){
                     temp++;
                     if(temp > count){
                         count = temp;
                         mostCommon = allChar.get(t);
                     }
-
-
                 }
             }
             temp = 0;

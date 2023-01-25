@@ -42,9 +42,14 @@ public class NaiveLetterFreqGuesser implements Guesser {
         // TODO: Fill in this method.
 
         int least;
-        System.out.println(guesses);
+        int temp;
+        int idx;
+
         if(getFrequencyMap().size() > 0) {
+            System.out.println(getFrequencyMap());
+
             for (int x = 0; x < guesses.size(); x++) {
+                if (guesses.size() > 0) {
                 least = getFrequencyMap().get(guesses.get(0));
                 if (getFrequencyMap().get(guesses.get(x)) < least) {
                     least = getFrequencyMap().get(guesses.get(x));
@@ -56,8 +61,15 @@ public class NaiveLetterFreqGuesser implements Guesser {
                         }
                     }
                 }
+            }else{
+                    
+                }
             }
         }
+
+
+
+
         return '?';
         }
 
