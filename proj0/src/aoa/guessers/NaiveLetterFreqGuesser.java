@@ -40,29 +40,28 @@ public class NaiveLetterFreqGuesser implements Guesser {
      *  (and therefore isn't present in GUESSES). */
     public char getGuess(List<Character> guesses) {
         // TODO: Fill in this method.
-        int least = getFrequencyMap().get(guesses.get(0));
-        Character[] freqSet = getFrequencyMap().keySet().toArray(new Character[getFrequencyMap().keySet().size()]);
-        int idx = -1;
 
-        for(int x = 0; x < guesses.size(); x++){
-            if(getFrequencyMap().get(guesses.get(x)) < least){
-                least = getFrequencyMap().get(guesses.get(x));
-            }
-        }
-
-        for(int i = least - 1; i >= 0; i--){
-            if(getFrequencyMap().containsValue(i)){
-                for(int p = 0; p < getFrequencyMap().size(); p++){
-                    idx++;
-                    if(getFrequencyMap().get(freqSet[p]) == i){
-                        return freqSet[idx];
+        int least;
+        System.out.println(guesses);
+        if(getFrequencyMap().size() > 0) {
+            for (int x = 0; x < guesses.size(); x++) {
+                least = getFrequencyMap().get(guesses.get(0));
+                if (getFrequencyMap().get(guesses.get(x)) < least) {
+                    least = getFrequencyMap().get(guesses.get(x));
+                    for (int i = least - 1; i >= 0; i--) {
+                        for (Character j : getFrequencyMap().keySet()) {
+                            if (getFrequencyMap().get(j) == i) {
+                                return j;
+                            }
+                        }
                     }
                 }
             }
         }
-
         return '?';
-    }
+        }
+
+
 
     public static void main(String[] args) {
         NaiveLetterFreqGuesser nlfg = new NaiveLetterFreqGuesser("data/example.txt");
