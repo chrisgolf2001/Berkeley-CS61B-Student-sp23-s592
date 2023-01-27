@@ -23,6 +23,7 @@ public class NaiveLetterFreqGuesser implements Guesser {
      *  This task is similar to something you did in hw0b! */
     public Map<Character, Integer> getFrequencyMap() {
         // TODO: Fill in this method.
+
         Map<Character, Integer> freqMap = new TreeMap<>();
         for(int x = 0; x < words.size(); x++){
             for(int i = 0; i < words.get(x).length(); i++){
@@ -33,6 +34,7 @@ public class NaiveLetterFreqGuesser implements Guesser {
                 }
             }
         }
+
         return freqMap;
     }
 
@@ -42,28 +44,56 @@ public class NaiveLetterFreqGuesser implements Guesser {
         // TODO: Fill in this method.
 
         int least;
-        int temp;
-        int idx;
+        int idx = 0;
+        int temp = 0;
+        int greatest= 0;
+        boolean fOccur = true;
 
-        if(getFrequencyMap().size() > 0) {
-            System.out.println(getFrequencyMap());
 
+        if(getFrequencyMap().size() > 0 && guesses.size() > 0) {
             for (int x = 0; x < guesses.size(); x++) {
-                if (guesses.size() > 0) {
                 least = getFrequencyMap().get(guesses.get(0));
-                if (getFrequencyMap().get(guesses.get(x)) < least) {
+                if (getFrequencyMap().get(guesses.get(x)) < least || guesses.size() == 1) {
                     least = getFrequencyMap().get(guesses.get(x));
                     for (int i = least - 1; i >= 0; i--) {
                         for (Character j : getFrequencyMap().keySet()) {
                             if (getFrequencyMap().get(j) == i) {
-                                return j;
+                                if(guessCheck(guesses, j)){
+                                    return j;
+                                }
+
                             }
                         }
                     }
+
                 }
-            }else{
-                    
+            }
+        }else{
+
+           for(Object key: getFrequencyMap().keySet()){
+               if(getFrequencyMap().get(key) > temp){
+                       greatest = getFrequencyMap().get(key);
+                       temp = getFrequencyMap().get(key);
+                   }
+           }
+
+            temp = 0;
+            for(Object key: getFrequencyMap().keySet()){
+                if(getFrequencyMap().get(key) == greatest && fOccur == true){
+                    idx = temp;
+                    fOccur = false;
                 }
+                temp++;
+            }
+
+            temp = 0;
+
+            for(Character key: getFrequencyMap().keySet()){
+
+                if(temp == idx){
+                    return key;
+                }
+                temp++;
             }
         }
 
@@ -71,6 +101,17 @@ public class NaiveLetterFreqGuesser implements Guesser {
 
 
         return '?';
+        }
+
+
+        public boolean guessCheck(List<Character> guess, char c){
+        for(int x = 0; x < guess.size(); x++){
+            if(guess.get(x) == c){
+                return false;
+            }
+
+        }
+        return true;
         }
 
 
@@ -82,5 +123,6 @@ public class NaiveLetterFreqGuesser implements Guesser {
 
         List<Character> guesses = List.of('e', 'l');
         System.out.println("guess: " + nlfg.getGuess(guesses));
+
     }
 }

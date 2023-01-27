@@ -18,24 +18,23 @@ public class PatternAwareLetterFreqGuesser implements Guesser {
 
     public char getGuess(String pattern, List<Character> guesses) {
         // TODO: Fill in this method.
-        int count = 0;
-        int temp = 0;
-        List<Integer> occur = new ArrayList<>();
-        Map<Character, Integer> occurance = new HashMap<>();
-        System.out.println(words);
-        System.out.println(pattern);
-        System.out.println(guesses);
-        System.out.println(keepOnlyWordsThatMatchPattern(pattern, guesses));
-        System.out.println(getCommonC(keepOnlyWordsThatMatchPattern(pattern, guesses), guesses));
+
+        //if there are no previous guesses -
+        if(guesses.size() == 0){
+            return  getCommonC(keepOnlyWordsThatMatchPattern(pattern, guesses), guesses);
+        }
+
+
         for(int x = 0; x < pattern.length(); x++){
             for(int l = 0; l < guesses.size(); l++){
                 if(pattern.charAt(x) == guesses.get(l)){
-                    count++;
+                    return getCommonC(keepOnlyWordsThatMatchPattern(pattern, guesses), guesses);
+                } else if (guesses.size()  > 0) {
                     return getCommonC(keepOnlyWordsThatMatchPattern(pattern, guesses), guesses);
                 }
             }
         }
-        System.out.println(pattern);
+
         return '?';
     }
 
@@ -44,6 +43,14 @@ public class PatternAwareLetterFreqGuesser implements Guesser {
         int idx = 0;
         char k = '?';
 
+        if(g.size() == 0){
+            for(int y = 0; y < words.size(); y++){
+                match.add(words.get(y));
+            }
+            return match;
+        }
+
+        //store the index of the letter in the pattern
         for(int i = 0; i < g.size(); i++){
             for(int  j = 0; j < p.length();j++ ){
                 if(g.get(i) == p.charAt(j)){
@@ -56,6 +63,8 @@ public class PatternAwareLetterFreqGuesser implements Guesser {
 
         for(int l = 0; l < words.size(); l++){
             if(words.get(l).charAt(idx) == k){
+                match.add(words.get(l));
+            } else if (k == '?' && idx == 0) {
                 match.add(words.get(l));
             }
         }
@@ -77,7 +86,6 @@ public class PatternAwareLetterFreqGuesser implements Guesser {
                 allChar.add(w.get(x).charAt(i));
             }
         }
-        System.out.println(allChar);
 
         Collections.sort(allChar);
         for(int t = 0; t < allChar.size() ; t++){

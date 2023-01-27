@@ -56,5 +56,8 @@ public class PAGALetterFreqGuesserTest {
         // check that the next guess is c since two os were found (since the word must be cool)
         guess = palfg.getGuess("-ool", List.of('l', 'a', 'o'));
         assertThat(guess).isEqualTo('c');
+
+
+
     }
 }
