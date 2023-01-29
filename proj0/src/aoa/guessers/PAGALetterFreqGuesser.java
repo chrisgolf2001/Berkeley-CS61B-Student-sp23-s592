@@ -15,12 +15,17 @@ public class PAGALetterFreqGuesser implements Guesser {
     /** Returns the most common letter in the set of valid words based on the current
      *  PATTERN and the GUESSES that have been made. */
     public char getGuess(String pattern, List<Character> guesses) {
-        System.out.println("");
+
        //if there are no previous guesses -
         if(guesses.size() == 0){
             return  getCommonCh(keepOnlyWordsThatMatchPatterns(pattern, guesses), guesses);
         }
 
+        System.out.println(words);
+        System.out.println(pattern);
+        System.out.println(guesses);
+        System.out.println(getCommonCh(keepOnlyWordsThatMatchPatterns(pattern, guesses), guesses));
+        System.out.println(keepOnlyWordsThatMatchPatterns(pattern, guesses));
 
         for(int x = 0; x < pattern.length(); x++){
             for(int l = 0; l < guesses.size(); l++){
@@ -68,6 +73,7 @@ public class PAGALetterFreqGuesser implements Guesser {
                 match.add(words.get(l));
             }
         }
+        Collections.sort(match);
         return match;
     }
 

@@ -57,7 +57,8 @@ public class PAGALetterFreqGuesserTest {
         guess = palfg.getGuess("-ool", List.of('l', 'a', 'o'));
         assertThat(guess).isEqualTo('c');
 
-
+        guess = palfg.getGuess("-ee", List.of('e'));
+        assertThat(guess).isEqualTo('b');
 
     }
 }

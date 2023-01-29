@@ -49,7 +49,6 @@ public class NaiveLetterFreqGuesser implements Guesser {
         int greatest= 0;
         boolean fOccur = true;
 
-
         if(getFrequencyMap().size() > 0 && guesses.size() > 0) {
             for (int x = 0; x < guesses.size(); x++) {
                 least = getFrequencyMap().get(guesses.get(0));
@@ -96,9 +95,6 @@ public class NaiveLetterFreqGuesser implements Guesser {
                 temp++;
             }
         }
-
-
-
 
         return '?';
         }

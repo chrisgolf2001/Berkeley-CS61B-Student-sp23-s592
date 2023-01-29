@@ -28,9 +28,6 @@ public class RandomChooser implements Chooser {
           Collections.sort(wordsList);
           int randomlyChosenWordNumber = StdRandom.uniform(0, wordsList.size());
 
-//        System.out.println(words);
-//        System.out.println(dictionaryFile);
-//        System.out.println(wordLength);
           String randomW = wordsList.get(randomlyChosenWordNumber);
 
 
@@ -45,6 +42,7 @@ public class RandomChooser implements Chooser {
         // TODO: Fill in this method.
         int count = 0;
         String updatedPattern = "";
+
         for(int x = 0; x < chosenWord.length();x++){
             if(chosenWord.charAt(x) == letter){
                 count++;
