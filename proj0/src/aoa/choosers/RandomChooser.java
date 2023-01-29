@@ -37,13 +37,11 @@ public class RandomChooser implements Chooser {
         chosenWord = randomW;
         pattern = "-".repeat(chosenWord.length());
 
-        System.out.println(this.chosenWord);
-        System.out.println(this.pattern);
+
     }
 
     @Override
     public int makeGuess(char letter) {
-        System.out.println(chosenWord);
         // TODO: Fill in this method.
         int count = 0;
         String updatedPattern = "";
@@ -55,8 +53,7 @@ public class RandomChooser implements Chooser {
                 updatedPattern += getPattern().charAt(x);
             }
         }
-        this.pattern = updatedPattern;
-        System.out.println(this.pattern);
+        pattern = updatedPattern;
         return count;
     }
 
