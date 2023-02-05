@@ -168,4 +168,122 @@ public class LinkedListDequeTest {
         assertThat(lld1.isEmpty()).isEqualTo(true);
     }
 
+    @Test
+    /** This test performs interspersed addFirst and addLast calls. */
+    public void addLastTest() {
+        Deque<String> lld1 = new LinkedListDeque<>();
+
+         /* I've decided to add in comments the state after each call for the convenience of the
+            person reading this test. Some programmers might consider this excessively verbose. */
+        lld1.addLast("Matt");
+        lld1.addLast("Alec");
+        lld1.addLast("Martina");
+        lld1.addLast("Sobec");
+        lld1.addLast("Nicolas");
+
+        assertThat(lld1.toList()).containsExactly("Matt", "Alec", "Martina", "Sobec", "Nicolas").inOrder();
+    }
+
+    @Test
+    public void getElement1() {
+        Deque<Character> lld1 = new LinkedListDeque<>();
+         /* I've decided to add in comments the state after each call for the convenience of the
+            person reading this test. Some programmers might consider this excessively verbose. */
+        lld1.addLast('A');   // [A]
+        lld1.addLast('B');   // [A, B]
+        lld1.addLast('C'); // [A, B, C]
+        lld1.addLast('D');   // [A, B, C, D]
+        lld1.addLast('E');
+        lld1.addLast('F');
+
+
+        assertThat(lld1.get(1)).isEqualTo('B');
+    }
+    @Test
+    public void getElement2() {
+        Deque<Character> lld1 = new LinkedListDeque<>();
+         /* I've decided to add in comments the state after each call for the convenience of the
+            person reading this test. Some programmers might consider this excessively verbose. */
+        lld1.addLast('A');   // [A]
+        lld1.addLast('B');   // [A, B]
+        lld1.addLast('C'); // [A, B, C]
+        lld1.addLast('D');   // [A, B, C, D]
+        lld1.addLast('E');
+        lld1.addLast('F');
+        lld1.addLast('Q');
+
+
+        assertThat(lld1.get(6)).isEqualTo('Q');
+    }
+    @Test
+    public void getElement3() {
+        Deque<Character> lld1 = new LinkedListDeque<>();
+         /* I've decided to add in comments the state after each call for the convenience of the
+            person reading this test. Some programmers might consider this excessively verbose. */
+        lld1.addLast('A');   // [A]
+        lld1.addLast('B');   // [A, B]
+        lld1.addLast('C'); // [A, B, C]
+        lld1.addLast('D');   // [A, B, C, D]
+        lld1.addFirst('E');
+        lld1.addLast('F');
+
+
+        assertThat(lld1.get(0)).isEqualTo('E');
+    }
+    @Test
+    public void getElement4() {
+        Deque<Character> lld1 = new LinkedListDeque<>();
+         /* I've decided to add in comments the state after each call for the convenience of the
+            person reading this test. Some programmers might consider this excessively verbose. */
+        lld1.addLast('A');   // [A]
+        lld1.addLast('B');   // [A, B]
+        lld1.addLast('C'); // [A, B, C]
+        lld1.addFirst('D');   // [A, B, C, D]
+        lld1.addFirst('E');
+        lld1.addLast('F');
+
+
+        assertThat(lld1.get(3)).isEqualTo('B');
+    }
+    @Test
+    public void getElement5() {
+        Deque<Character> lld1 = new LinkedListDeque<>();
+         /* I've decided to add in comments the state after each call for the convenience of the
+            person reading this test. Some programmers might consider this excessively verbose. */
+        lld1.addLast('A');   // [A]
+        lld1.addFirst('B');   // [A, B]
+        lld1.addLast('C'); // [A, B, C]
+        lld1.addLast('D');   // [A, B, C, D]
+        lld1.addLast('E');
+        lld1.addLast('F');
+
+
+        assertThat(lld1.get(3)).isEqualTo('D');
+    }
+
+    @Test
+    public void removeElemTest() {
+        Deque<Character> lld1 = new LinkedListDeque<>();
+         /* I've decided to add in comments the state after each call for the convenience of the
+            person reading this test. Some programmers might consider this excessively verbose. */
+        lld1.addLast('A');   // [A]
+        lld1.addFirst('B');   // [A, B]
+        lld1.addLast('C'); // [A, B, C]
+        lld1.addLast('D');   // [A, B, C, D]
+        lld1.addLast('E');
+        lld1.addLast('F');
+
+        lld1.removeLast();
+        lld1.removeLast();
+        lld1.removeLast();
+        lld1.removeLast();
+        lld1.removeLast();
+        lld1.removeLast();
+        lld1.addLast('K');
+
+
+
+        assertThat(lld1.isEmpty()).isEqualTo(false);
+    }
+
 }
