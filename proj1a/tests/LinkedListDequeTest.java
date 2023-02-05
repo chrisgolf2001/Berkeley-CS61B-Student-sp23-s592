@@ -111,4 +111,36 @@ public class LinkedListDequeTest {
         assertThat(lld1.isEmpty()).isEqualTo(true);
     }
 
+    @Test
+    public void deleteLastTwo() {
+        Deque<Character> lld1 = new LinkedListDeque<>();
+         /* I've decided to add in comments the state after each call for the convenience of the
+            person reading this test. Some programmers might consider this excessively verbose. */
+        lld1.addLast('A');   // [A]
+        lld1.addLast('B');   // [A, B]
+        lld1.addLast('C'); // [A, B, C]
+        lld1.addLast('D');   // [A, B, C, D]
+        lld1.removeLast();
+        lld1.removeLast();
+
+
+        assertThat(lld1.removeLast()).isEqualTo('B');
+    }
+
+    @Test
+    public void recursiveFunctionCheck() {
+        Deque<Character> lld1 = new LinkedListDeque<>();
+         /* I've decided to add in comments the state after each call for the convenience of the
+            person reading this test. Some programmers might consider this excessively verbose. */
+        lld1.addLast('A');   // [A]
+        lld1.addLast('B');   // [A, B]
+        lld1.addLast('C'); // [A, B, C]
+        lld1.addLast('D');   // [A, B, C, D]
+        lld1.addLast('E');
+        lld1.addLast('F');
+
+
+        assertThat(lld1.getRecursive(3)).isEqualTo('D');
+    }
+
 }
