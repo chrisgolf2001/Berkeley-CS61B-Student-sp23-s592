@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class LinkedListDeque <T> implements Deque<T> {
+public class LinkedListDeque<T> implements Deque<T> {
 
-    private class Node <T> {
+    private class Node<T> {
         private Node prev;
         private T item;
         private Node next;
@@ -14,7 +14,7 @@ public class LinkedListDeque <T> implements Deque<T> {
             item = null;
             next = null;
         }
-        public Node(T i, Node n, Node p){
+        public Node(T i, Node n, Node p) {
             prev = p;
             item = i;
             next = n;
@@ -47,19 +47,6 @@ public class LinkedListDeque <T> implements Deque<T> {
     }
     public static void main(String[] args) {
 
-        Deque<Integer> lld1 = new LinkedListDeque<>();
-        lld1.addFirst(4);
-        lld1.addFirst(3);
-        lld1.addFirst(2);
-        lld1.addFirst(1);
-        lld1.addLast(5);
-
-        lld1.toList();
-        lld1.removeFirst();
-        lld1.removeLast();
-        lld1.get(1);
-        lld1.getRecursive(1);
-        System.out.println(lld1.toList());
         Deque<Character> lld2 = new LinkedListDeque<>();
         lld2.addLast('A');   // [A]
         lld2.addLast('B');   // [A, B]

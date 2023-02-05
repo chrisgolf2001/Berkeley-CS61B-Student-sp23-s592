@@ -299,7 +299,7 @@ public class LinkedListDequeTest {
 
     @Test
     /** This test performs interspersed addFirst and addLast calls. */
-    public void toListCheck() {
+    public void getOutOfBoundsTest() {
         Deque<String> lld = new LinkedListDeque<>();
 
          /* I've decided to add in comments the state after each call for the convenience of the
@@ -315,6 +315,54 @@ public class LinkedListDequeTest {
         lld.removeLast();
         lld.addFirst("Kevin");
         assertThat(lld.toList()).containsExactly("Kevin", "Sobec", "Martina", "Alec", "Matt").inOrder();
+    }
+
+    @Test
+    /** This test performs interspersed addFirst and addLast calls. */
+    public void toListCheck() {
+        Deque<String> lld = new LinkedListDeque<>();
+
+         /* I've decided to add in comments the state after each call for the convenience of the
+            person reading this test. Some programmers might consider this excessively verbose. */
+        lld.addFirst("Matt");
+        lld.addFirst("Alec");
+        lld.addFirst("Martina");
+        lld.addFirst("Sobec");
+        lld.addLast("Nicolas");
+
+        assertThat(lld.get(100)).isEqualTo("Sobec");
+
+    }
+@Test
+    public void getOutOfBoundsTestRecursive() {
+        Deque<String> lld = new LinkedListDeque<>();
+
+         /* I've decided to add in comments the state after each call for the convenience of the
+            person reading this test. Some programmers might consider this excessively verbose. */
+        lld.addFirst("Matt");
+        lld.addFirst("Alec");
+        lld.addFirst("Martina");
+        lld.addFirst("Sobec");
+        lld.addLast("Nicolas");
+
+        assertThat(lld.getRecursive(100)).isEqualTo("Sobec");
+
+    }
+
+    @Test
+    public void toListEmpty() {
+        Deque<String> lld = new LinkedListDeque<>();
+
+         /* I've decided to add in comments the state after each call for the convenience of the
+            person reading this test. Some programmers might consider this excessively verbose. */
+        lld.addFirst("Matt");
+        lld.addFirst("Alec");
+
+        lld.removeLast();
+        lld.removeLast();
+
+        assertThat(lld.toList()).isEmpty();
+
     }
 
 }
