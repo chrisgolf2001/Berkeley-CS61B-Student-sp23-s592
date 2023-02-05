@@ -6,12 +6,16 @@ import java.util.List;
  */
 public interface Deque<T> {
 
+
+
     /**
      * Add {@code x} to the front of the deque. Assumes {@code x} is never null.
      *
      * @param x item to add
+     *
      */
     void addFirst(T x);
+
 
     /**
      * Add {@code x} to the back of the deque. Assumes {@code x} is never null.
