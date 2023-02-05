@@ -247,7 +247,23 @@ public class LinkedListDequeTest {
         lld1.addLast(-9);
 
 
-        assertThat(lld1.get(-1)).isEqualTo(null);
+        assertThat(lld1.getRecursive(-1)).isEqualTo(null);
+    }
+
+    @Test
+    public void getElementRecursiveNegOut() {
+        Deque<Integer> lld1 = new LinkedListDeque<>();
+         /* I've decided to add in comments the state after each call for the convenience of the
+            person reading this test. Some programmers might consider this excessively verbose. */
+        lld1.addLast(-1);   // [A]
+        lld1.addLast(100);   // [A, B]
+        lld1.addLast(-8); // [A, B, C]
+        lld1.addFirst(100);   // [A, B, C, D]
+        lld1.addFirst(8);
+        lld1.addLast(-9);
+
+
+        assertThat(lld1.getRecursive(1000)).isEqualTo(9);
     }
     @Test
     public void getElement5() {
