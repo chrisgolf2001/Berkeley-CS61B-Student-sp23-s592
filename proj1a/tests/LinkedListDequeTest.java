@@ -189,19 +189,19 @@ public class LinkedListDequeTest {
     }
 
     @Test
-    public void getElement1() {
-        Deque<Character> lld1 = new LinkedListDeque<>();
+    public void getElementNegative() {
+        Deque<Integer> lld1 = new LinkedListDeque<>();
          /* I've decided to add in comments the state after each call for the convenience of the
             person reading this test. Some programmers might consider this excessively verbose. */
-        lld1.addLast('A');   // [A]
-        lld1.addLast('B');   // [A, B]
-        lld1.addLast('C'); // [A, B, C]
-        lld1.addLast('D');   // [A, B, C, D]
-        lld1.addLast('E');
-        lld1.addLast('F');
+        lld1.addLast(-1);
+        lld1.addLast(-200);
+        lld1.addLast(10);
+        lld1.addLast(0);
+        lld1.addLast(78);
+        lld1.addLast(-9);
 
 
-        assertThat(lld1.get(1)).isEqualTo('B');
+        assertThat(lld1.get(-1)).isEqualTo(null);
     }
     @Test
     public void getElement2() {
@@ -235,7 +235,7 @@ public class LinkedListDequeTest {
         assertThat(lld1.get(0)).isEqualTo('E');
     }
     @Test
-    public void getElement4() {
+    public void getElementRecursiveNeg() {
         Deque<Character> lld1 = new LinkedListDeque<>();
          /* I've decided to add in comments the state after each call for the convenience of the
             person reading this test. Some programmers might consider this excessively verbose. */
@@ -247,7 +247,7 @@ public class LinkedListDequeTest {
         lld1.addLast('F');
 
 
-        assertThat(lld1.get(3)).isEqualTo('B');
+        assertThat(lld1.get(-1)).isEqualTo(null);
     }
     @Test
     public void getElement5() {
