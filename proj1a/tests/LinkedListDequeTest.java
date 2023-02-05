@@ -182,6 +182,10 @@ public class LinkedListDequeTest {
         lld1.addLast("Nicolas");
 
         assertThat(lld1.toList()).containsExactly("Matt", "Alec", "Martina", "Sobec", "Nicolas").inOrder();
+
+        lld1.removeLast();
+        lld1.addFirst("Kevin");
+        assertThat(lld1.toList()).containsExactly("Kevin","Matt", "Alec", "Martina", "Sobec").inOrder();
     }
 
     @Test
@@ -251,14 +255,21 @@ public class LinkedListDequeTest {
          /* I've decided to add in comments the state after each call for the convenience of the
             person reading this test. Some programmers might consider this excessively verbose. */
         lld1.addLast('A');   // [A]
-        lld1.addFirst('B');   // [A, B]
+        lld1.addLast('B');   // [A, B]
         lld1.addLast('C'); // [A, B, C]
         lld1.addLast('D');   // [A, B, C, D]
         lld1.addLast('E');
         lld1.addLast('F');
 
 
+        assertThat(lld1.get(0)).isEqualTo('A');
+        assertThat(lld1.get(1)).isEqualTo('B');
+        assertThat(lld1.get(2)).isEqualTo('C');
         assertThat(lld1.get(3)).isEqualTo('D');
+        assertThat(lld1.get(4)).isEqualTo('E');
+        assertThat(lld1.get(5)).isEqualTo('F');
+
+
     }
 
     @Test
@@ -284,6 +295,26 @@ public class LinkedListDequeTest {
 
 
         assertThat(lld1.isEmpty()).isEqualTo(false);
+    }
+
+    @Test
+    /** This test performs interspersed addFirst and addLast calls. */
+    public void toListCheck() {
+        Deque<String> lld = new LinkedListDeque<>();
+
+         /* I've decided to add in comments the state after each call for the convenience of the
+            person reading this test. Some programmers might consider this excessively verbose. */
+        lld.addFirst("Matt");
+        lld.addFirst("Alec");
+        lld.addFirst("Martina");
+        lld.addFirst("Sobec");
+        lld.addLast("Nicolas");
+
+        assertThat(lld.toList()).containsExactly("Sobec", "Martina", "Alec", "Matt", "Nicolas").inOrder();
+
+        lld.removeLast();
+        lld.addFirst("Kevin");
+        assertThat(lld.toList()).containsExactly("Kevin", "Sobec", "Martina", "Alec", "Matt").inOrder();
     }
 
 }
