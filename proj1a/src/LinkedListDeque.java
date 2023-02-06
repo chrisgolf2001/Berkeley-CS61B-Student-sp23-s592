@@ -48,12 +48,21 @@ public class LinkedListDeque<T> implements Deque<T> {
     public static void main(String[] args) {
 
         Deque<Character> lld2 = new LinkedListDeque<>();
-        lld2.addLast('A');   // [A]
-        lld2.addLast('B');   // [A, B]
-        lld2.addLast('C'); // [A, B, C]
-        lld2.addLast('D');   // [A, B, C, D]
+        lld2.addLast('A');
+        lld2.addLast('B');
+        lld2.addLast('C');
+        lld2.addLast('D');
         lld2.addLast('E');
         lld2.addLast('F');
+        System.out.println(lld2.toList());
+
+        lld2.removeLast();
+        lld2.removeLast();
+        System.out.println(lld2.toList());
+        lld2.removeFirst();
+        lld2.removeFirst();
+        lld2.removeFirst();
+        lld2.removeFirst();
         System.out.println(lld2.toList());
     }
     @Override
@@ -117,9 +126,9 @@ public class LinkedListDeque<T> implements Deque<T> {
        Node <T> next = sentinel.next.next;
        sentinel.next = next;
        next.prev = sentinel;
-
        size--;
-      return next.item;
+
+       return next.item;
 
     }
 
@@ -130,12 +139,12 @@ public class LinkedListDeque<T> implements Deque<T> {
         throw new IndexOutOfBoundsException();
     }
 
-        Node <T> last = sentinel.prev;
-        sentinel.prev = last.prev;
-        last.prev.next = sentinel;
+    Node <T> last = sentinel.prev;
+    sentinel.prev = last.prev;
+    last.prev.next = sentinel;
+    size--;
 
-        size--;
-        return last.item;
+    return last.item;
     }
 
     @Override
