@@ -501,5 +501,44 @@ public class LinkedListDequeTest {
         assertThat(lld5.toList()).isEmpty();
 
     }
+    @Test
+    public void getOob_large() {
+        Deque<Character> lld1 = new LinkedListDeque<>();
+         /* I've decided to add in comments the state after each call for the convenience of the
+            person reading this test. Some programmers might consider this excessively verbose. */
+        lld1.addLast('A');   // [A]
+        lld1.addLast('B');   // [A, B]
+        lld1.addLast('C'); // [A, B, C]
+        lld1.addLast('D');   // [A, B, C, D]
+        lld1.addLast('E');
+        lld1.addLast('F');
+        lld1.addLast('Q');
+
+
+        assertThat(lld1.get(600)).isEqualTo(null);
+    }
+
+    @Test
+    public void getRecursiveMany() {
+        Deque<Character> lld1 = new LinkedListDeque<>();
+         /* I've decided to add in comments the state after each call for the convenience of the
+            person reading this test. Some programmers might consider this excessively verbose. */
+        lld1.addLast('A');   // [A]
+        lld1.addLast('B');   // [A, B]
+        lld1.addLast('C'); // [A, B, C]
+        lld1.addLast('D');   // [A, B, C, D]
+        lld1.addLast('E');
+        lld1.addLast('F');
+        lld1.addLast('Q');
+
+
+        assertThat(lld1.getRecursive (0)).isEqualTo('A');
+        assertThat(lld1.getRecursive (1)).isEqualTo('B');
+        assertThat(lld1.getRecursive (2)).isEqualTo('C');
+        assertThat(lld1.getRecursive (3)).isEqualTo('D');
+        assertThat(lld1.getRecursive (600)).isEqualTo(null);
+    }
+
+
 }
 
