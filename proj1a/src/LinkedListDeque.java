@@ -126,12 +126,8 @@ public class LinkedListDeque<T> implements Deque<T>{
             return null;
         }
 
-        Node<T> next = sentinel.next.next;
-        sentinel.next = next;
-        next.prev = sentinel;
-        size--;
 
-        return next.item;
+        return (T) remove (sentinel.next);
 
     }
 
@@ -142,12 +138,16 @@ public class LinkedListDeque<T> implements Deque<T>{
             return null;
         }
 
-        Node<T> last = sentinel.prev;
-        sentinel.prev = last.prev;
-        last.prev.next = sentinel;
-        size--;
+        return (T) remove(sentinel.prev);
+    }
 
-        return last.item;
+    public T remove(Node <T> n){
+        size--;
+        n.prev.next = n.next;
+        n.next.prev = n.prev;
+
+        return n.item;
+
     }
 
     @Override
