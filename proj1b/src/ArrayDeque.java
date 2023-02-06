@@ -1,5 +1,3 @@
-import org.checkerframework.checker.units.qual.A;
-import org.checkerframework.checker.units.qual.Length;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +22,7 @@ public class ArrayDeque<T> implements Deque<T> {
         ad.addFirst('f');
         ad.addLast('g');
         ad.addLast('h');
-        ad.removeFirst ();
+        ad.removeFirst();
         ad.removeLast();
         System.out.println(ad.toList());
         ad.addLast('t');
@@ -52,8 +50,8 @@ public class ArrayDeque<T> implements Deque<T> {
 
         T[] newL = (T[]) new Object[cap];
 
-        System.arraycopy(list,nextLast ,newL,0,size - nextLast);
-        System.arraycopy(list,0 ,newL,size - nextFirst - 1,nextLast);
+        System.arraycopy(list, nextLast, newL, 0, size - nextLast);
+        System.arraycopy(list, 0, newL,size - nextFirst - 1, nextLast);
         list = newL;
         nextFirst = list.length - 1;
         nextLast = size;
@@ -64,17 +62,16 @@ public class ArrayDeque<T> implements Deque<T> {
     @Override
     public void addFirst(T x) {
         if (size == list.length) {
-            resize(Integer.valueOf((int) round(size*1.20)));
+            resize(Integer.valueOf((int) round(size * 1.20)));
         }
 
         size++;
         list[nextFirst] = x;
         nextFirst--;
-
-        }
+    }
 
     @Override
-    public void addLast(T x){
+    public void addLast(T x) {
         if (size == list.length) {
             resize(size*2);
         }
@@ -82,14 +79,14 @@ public class ArrayDeque<T> implements Deque<T> {
         size++;
         list[nextLast] = x;
         nextLast++;
-        }
+    }
     @Override
     public List<T> toList() {
         List<T> nList = new ArrayList<>();
         if (nextFirst <= list.length - 1) {
-            for (int x = nextFirst - 1; x != list.length ; x++) {
+            for (int x = nextFirst - 1; x != list.length; x++) {
                 if (list[x] != null) {
-                    nList.add (list[x]);
+                    nList.add(list[x]);
                 }
             }
         }
@@ -97,7 +94,7 @@ public class ArrayDeque<T> implements Deque<T> {
         if(nextLast != 0) {
             for (int x = 0; x < nextFirst; x++) {
                 if (list[x] != null) {
-                    nList.add (list[x]);
+                    nList.add(list[x]);
                 }
             }
         }
@@ -106,7 +103,7 @@ public class ArrayDeque<T> implements Deque<T> {
     }
 
     @Override
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return size == 0;
     }
 
@@ -119,7 +116,7 @@ public class ArrayDeque<T> implements Deque<T> {
     public T removeFirst() {
         size--;
 
-        if (nextFirst == list.length -1) {
+        if (nextFirst == list.length - 1) {
             return null;
         } else {
             T item = list[nextFirst + 1];
@@ -138,7 +135,7 @@ public class ArrayDeque<T> implements Deque<T> {
             T item = list[nextLast - 1];
             list[nextLast - 1] = null;
             nextLast--;
-            return item ;
+            return item;
         }
 
     }
