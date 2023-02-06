@@ -8,14 +8,13 @@ public class LinkedListDeque<T> implements Deque<T> {
         private T item;
         private Node next;
 
-        public Node ( ) {
+        public Node() {
 
             prev = null;
             item = null;
             next = null;
         }
-
-        public Node ( T i, Node n, Node p ) {
+        public Node(T i, Node n, Node p) {
             prev = p;
             item = i;
             next = n;
@@ -27,16 +26,16 @@ public class LinkedListDeque<T> implements Deque<T> {
 
     int size;
 
-    public LinkedListDeque ( ) {
-        sentinel = new Node ( 0, null, null );
+    public LinkedListDeque() {
+        sentinel = new Node(0, null, null);
         sentinel.next = sentinel;
         sentinel.prev = sentinel;
         size = 0;
     }
 
-    public LinkedListDeque ( T item ) {
-        sentinel = new Node<T> ( item, null, null );
-        Node<T> n = new Node<T> ( item, null, null );
+    public LinkedListDeque(T item) {
+        sentinel = new Node<T>(item, null, null);
+        Node<T> n = new Node<T>(item, null, null);
 
         sentinel.prev = n;
         sentinel.next = n;
@@ -46,32 +45,30 @@ public class LinkedListDeque<T> implements Deque<T> {
 
         size = 1;
     }
+    public static void main(String[] args) {
 
-    public static void main ( String[] args ) {
+        Deque<Character> lld2 = new LinkedListDeque<>();
+        lld2.addLast('A');
+        lld2.addLast('B');
+        lld2.addLast('C');
+        lld2.addLast('D');
+        lld2.addLast('E');
+        lld2.addLast('F');
+        System.out.println(lld2.toList());
 
-//        Deque<Character> lld2 = new LinkedListDeque<>();
-//        lld2.addLast('A');
-//        lld2.addLast('B');
-//        lld2.addLast('C');
-//        lld2.addLast('D');
-//        lld2.addLast('E');
-//        lld2.addLast('F');
-//        System.out.println(lld2.toList());
-//
-//        lld2.removeLast();
-//        lld2.removeLast();
-//        System.out.println(lld2.toList());
-//        lld2.removeFirst();
-//        lld2.removeFirst();
-//        lld2.removeFirst();
-//        lld2.removeFirst();
-//        System.out.println(lld2.toList());
+        lld2.removeLast();
+        lld2.removeLast();
+        System.out.println(lld2.toList());
+        lld2.removeFirst();
+        lld2.removeFirst();
+        lld2.removeFirst();
+        lld2.removeFirst();
+        System.out.println(lld2.toList());
     }
-
     @Override
-    public void addFirst ( T x ) {
+    public void addFirst(T x) {
         size++;
-        Node<T> n = new Node<T> ( x, null, null );
+        Node<T> n = new Node<T> (x, null, null);
         n.prev = sentinel;
         n.next = sentinel.next;
         sentinel.next.prev = n;
@@ -81,9 +78,9 @@ public class LinkedListDeque<T> implements Deque<T> {
 
 
     @Override
-    public void addLast ( T x ) {
+    public void addLast(T x) {
         size++;
-        Node<T> n = new Node<T> ( x, null, null );
+        Node <T> n = new Node <T> (x, null, null);
         n.prev = sentinel.prev;
         n.next = sentinel;
         sentinel.prev.next = n;
@@ -91,15 +88,15 @@ public class LinkedListDeque<T> implements Deque<T> {
     }
 
     @Override
-    public List<T> toList ( ) {
+    public List <T> toList() {
 
-        List<T> ls = new ArrayList<> ( );
+        List <T> ls = new ArrayList<>();
         Node n = sentinel;
         int count = 0;
 
-        while (count < size) {
+        while (count < size){
 
-            ls.add ( (T) n.next.item );
+            ls.add((T) n.next.item);
             n = n.next;
             count++;
         }
@@ -108,62 +105,62 @@ public class LinkedListDeque<T> implements Deque<T> {
     }
 
     @Override
-    public boolean isEmpty ( ) {
-        if (size == 0) {
+    public boolean isEmpty() {
+        if (size == 0){
             return true;
         }
         return false;
     }
 
     @Override
-    public int size ( ) {
+    public int size() {
         return size;
     }
 
     @Override
-    public T removeFirst ( ) {
-        if (size == 0) {
-            throw new IndexOutOfBoundsException ( );
+    public T removeFirst() {
+        if (size == 0){
+            throw new IndexOutOfBoundsException();
         }
 
-        Node<T> next = sentinel.next.next;
-        sentinel.next = next;
-        next.prev = sentinel;
-        size--;
+       Node <T> next = sentinel.next.next;
+       sentinel.next = next;
+       next.prev = sentinel;
+       size--;
 
-        return next.item;
+       return next.item;
 
     }
 
     @Override
-    public T removeLast ( ) {
+    public T removeLast() {
 
-        if (size == 0) {
-            throw new IndexOutOfBoundsException ( );
-        }
+    if (size == 0){
+        throw new IndexOutOfBoundsException();
+    }
 
-        Node<T> last = sentinel.prev;
-        sentinel.prev = last.prev;
-        last.prev.next = sentinel;
-        size--;
+    Node <T> last = sentinel.prev;
+    sentinel.prev = last.prev;
+    last.prev.next = sentinel;
+    size--;
 
-        return last.item;
+    return last.item;
     }
 
     @Override
-    public T get ( int index ) {
+    public T get(int index ) {
 
         Node p = sentinel;
-        Node<T> item = new Node<> ( );
+        Node <T> item = new Node<>();
 
-        if (index >= size) {
-            throw new IndexOutOfBoundsException ( );
+        if (index >= size || index < 0) {
+            return null;
         }
 
-        while (index != - 1) {
+        while (index != -1){
             p = p.next;
             item = p;
-            index--;
+            index --;
 
         }
 
@@ -171,21 +168,20 @@ public class LinkedListDeque<T> implements Deque<T> {
     }
 
     @Override
-    public T getRecursive ( int index ) {
-//        if (index >= size) {
-//            throw new IndexOutOfBoundsException ( );
-//        } else {
-//
-//        }
-        return (T) helperRecursive ( sentinel.next, index );
+    public T getRecursive(int index) {
+        if (index >= size || index < 0) {
+            return null;
+        }else{
+            return (T) helperRecursive(sentinel.next, index);
+        }
 
     }
 
-    public T helperRecursive ( Node<T> n, int idx ) {
-        if (idx == 0) {
+    public T helperRecursive(Node<T> n, int idx) {
+        if (idx == 0){
             return n.item;
         }
-        return (T) helperRecursive ( n.next, idx - 1 );
+        return (T) helperRecursive(n.next, idx - 1);
     }
 }
 

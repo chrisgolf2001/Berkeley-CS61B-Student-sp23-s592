@@ -264,7 +264,7 @@ public class LinkedListDequeTest {
         lld1.addLast(-9);
 
 
-        assertThat(lld1.getRecursive(-1)).isEqualTo(9);
+        assertThat(lld1.getRecursive(-1)).isEqualTo(null);
     }
     @Test
     public void getElement5() {
@@ -362,7 +362,7 @@ public class LinkedListDequeTest {
         lld.addFirst("Sobec");
         lld.addLast("Nicolas");
 
-        assertThat(lld.getRecursive(100)).isEqualTo("Sobec");
+        assertThat(lld.getRecursive(100)).isEqualTo(null);
 
     }
 
@@ -431,8 +431,8 @@ public class LinkedListDequeTest {
             person reading this test. Some programmers might consider this excessively verbose. */
 
         lld.addFirst("Matt");
-
-        assertThat(lld.removeFirst()).isEmpty();
+        lld.removeFirst();
+        assertThat(lld.toList ()).isEmpty();
 
     }
     @Test
@@ -447,4 +447,59 @@ public class LinkedListDequeTest {
         assertThat(lld5.toList()).isEmpty();
 
     }
+
+
+    @Test
+    public void removeFirstTillEmpty() {
+        Deque<String> lld5 = new LinkedListDeque<>();
+
+         /* I've decided to add in comments the state after each call for the convenience of the
+            person reading this test. Some programmers might consider this excessively verbose. */
+
+        lld5.addFirst("Matt");
+        lld5.addFirst("Matt");
+        lld5.addFirst("Matt");
+        lld5.addFirst("Matt");
+        lld5.addFirst("Matt");
+
+
+
+        lld5.removeFirst();
+        lld5.removeFirst();
+        lld5.removeFirst();
+        lld5.removeFirst();
+        lld5.removeFirst();
+
+
+        assertThat(lld5.toList()).isEmpty();
+
+    }
+
+    @Test
+    public void removeLastTillEmpty() {
+        Deque<String> lld5 = new LinkedListDeque<>();
+
+         /* I've decided to add in comments the state after each call for the convenience of the
+            person reading this test. Some programmers might consider this excessively verbose. */
+
+
+            lld5.addFirst("Matt");
+            lld5.addFirst("Matt");
+            lld5.addFirst("Matt");
+            lld5.addFirst("Matt");
+            lld5.addFirst("Matt");
+
+            lld5.removeLast();
+            lld5.removeLast();
+            lld5.removeLast();
+            lld5.removeLast();
+            lld5.removeLast();
+
+
+
+
+        assertThat(lld5.toList()).isEmpty();
+
+    }
 }
+
