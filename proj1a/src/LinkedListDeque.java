@@ -87,10 +87,7 @@ public class LinkedListDeque<T> implements Deque<T> {
 
     @Override
     public boolean isEmpty() {
-        if (size == 0) {
-            return true;
-        }
-        return false;
+        return size == 0;
     }
 
     @Override
@@ -112,7 +109,6 @@ public class LinkedListDeque<T> implements Deque<T> {
         if (size == 0) {
             return null;
         }
-
         return (T) remove(sentinel.prev);
     }
 
@@ -130,7 +126,7 @@ public class LinkedListDeque<T> implements Deque<T> {
         Node p = sentinel;
         Node<T> item = new Node<>();
 
-        if (index >= size || index < 0){
+        if (index >= size || index < 0) {
             return null;
         }
 
