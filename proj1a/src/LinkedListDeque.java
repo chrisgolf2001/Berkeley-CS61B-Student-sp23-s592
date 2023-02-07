@@ -144,7 +144,7 @@ public class LinkedListDeque<T> implements Deque<T> {
         if (index >= size || index < 0) {
             return null;
         }
-            return (T) helperRecursive(sentinel.next, index);
+        return (T) helperRecursive(sentinel.next, index);
     }
 
     public T helperRecursive(Node<T> n, int idx) {
