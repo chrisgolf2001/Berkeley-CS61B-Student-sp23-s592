@@ -399,20 +399,18 @@ public class ArrayDequeTest {
          /* I've decided to add in comments the state after each call for the convenience of the
             person reading this test. Some programmers might consider this excessively verbose. */
 
-        lld5.addFirst("Matt");
-        lld5.addFirst("Matt");
-        lld5.addFirst("Matt");
-        lld5.addFirst("Matt");
-        lld5.addFirst("Matt");
+        lld5.addLast("Matt");
 
-        lld5.removeFirst();
-        lld5.removeFirst();
-        lld5.removeFirst();
-        lld5.removeFirst();
-        lld5.removeFirst();
-
+        assertThat(lld5.toList()).containsExactly("Matt");
+        assertThat(lld5.removeLast()).isEqualTo("Matt");
+        assertThat(lld5.removeLast()).isEqualTo(null);
         assertThat(lld5.toList()).isEmpty();
 
+        lld5.addFirst("Matt");
+        lld5.addFirst("Matt");
+
+        assertThat(lld5.size()).isEqualTo(2);
+        assertThat(lld5.toList()).containsExactly("Matt", "Matt").inOrder();
     }
 
         @Test
