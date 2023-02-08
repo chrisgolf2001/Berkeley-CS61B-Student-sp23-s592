@@ -120,7 +120,7 @@ public class ArrayDeque<T> implements Deque<T> {
         T[] newL = (T[])new Object[list.length];
         System.arraycopy(list, idx, newL, 0, size - 1);
         list = newL;
-        if ((list.length - size) > round(size * 1.20) && list.length >= 16) {
+        if (list.length  > round(size * 1.20)) {
             resize((int) round(size * 1.20), size - 1);
         }
         nextLast--;
@@ -144,9 +144,7 @@ public class ArrayDeque<T> implements Deque<T> {
             return null;
         } else {
             T item = list[nextLast - 1];
-//            remove(0, size);
-            size--;
-            nextLast--;
+            remove(0, size);
             return item;
         }
     }

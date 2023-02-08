@@ -388,8 +388,8 @@ public class ArrayDequeTest {
         lld5.removeLast();
         lld5.removeLast();
         lld5.removeLast();
-        lld5.removeLast();
-
+        assertThat(lld5.removeLast()).isEqualTo("Matt");
+        assertThat(lld5.removeLast()).isEqualTo(null);
         assertThat(lld5.toList()).isEmpty();
 
     }
@@ -472,11 +472,11 @@ public class ArrayDequeTest {
         Deque<Character> lld1 = new  ArrayDeque<>();
          /* I've decided to add in comments the state after each call for the convenience of the
             person reading this test. Some programmers might consider this excessively verbose. */
-        for(int x = 20; x >= 0; x--){
-            lld1.addLast('A');
+        for(int x = 39; x >= 0; x--){
+            lld1.addFirst('A');
         }
 
-        for(int x = 10; x >= 0; x--){
+        for(int x = 29; x >= 0; x--){
             lld1.removeFirst();
         }
 
