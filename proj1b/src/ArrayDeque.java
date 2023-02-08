@@ -1,7 +1,6 @@
-
 import java.util.ArrayList;
 import java.util.List;
-import static java.lang.Math.round;
+
 
 public class ArrayDeque<T> implements Deque<T> {
 
@@ -9,8 +8,9 @@ public class ArrayDeque<T> implements Deque<T> {
     private int size;
     private int nextFirst;
     private int nextLast;
-    private T[] list = (T[]) new Object[8];
-    public static void main(String[] args) {
+    private T[] list = (T[])new Object[8];
+
+    public static void main (String[] args) {
         Deque<Character> ad = new ArrayDeque<>();
         ad.addFirst('a');
         ad.addFirst('b');
@@ -25,137 +25,119 @@ public class ArrayDeque<T> implements Deque<T> {
         System.out.println(ad.toList());
         ad.addLast('t');
 
-        ad.addFirst('A');
-        ad.addFirst('B');
-        ad.addFirst('C');
-        ad.addFirst('D');
-        ad.addFirst('E');
-        ad.addFirst('F');
-        ad.addLast('G');
-        ad.addLast('H');
 
-        System.out.println(ad.toList());
-
-        Deque<Integer> lld2 = new ArrayDeque<>();
-
-        lld2.addFirst(0);
-        lld2.addLast(1);
-        lld2.removeLast();
-        lld2.get(0);
     }
 
-    public ArrayDeque() {
+    public ArrayDeque () {
         size = 0;
-        nextFirst = list.length - 1;
+        nextFirst = 0;
         nextLast = 0;
     }
 
-    public void resize(int cap) {
+    public void resize (int cap, int nSize) {
 
-        T[] newL = (T[]) new Object[cap];
-
-        System.arraycopy(list, nextLast, newL, 0, size - nextLast);
-        System.arraycopy(list, 0, newL, size - nextFirst - 1, nextLast);
+        T[] newL = (T[])new Object[cap];
+        System.arraycopy(list, 0, newL, 0, nSize);
         list = newL;
-        nextFirst = list.length - 1;
-        nextLast = size;
 
     }
 
-
-    @Override
-    public void addFirst(T x) {
-        double ratio = 1.20;
-        if (size == list.length) {
-            resize(Integer.valueOf((int) round(size * ratio)));
-        }
-
-        size++;
-        list[nextFirst] = x;
-        nextFirst--;
-    }
-
-    @Override
-    public void addLast(T x) {
-        if (size == list.length) {
-            resize(size*2);
-        }
-
-        size++;
-        list[nextLast] = x;
+    public void add (int idx, int place, T value) {
+        T[] newL = (T[])new Object[list.length];
+        System.arraycopy(list, 0, newL, idx, size);
+        newL[place] = value;
+        list = newL;
         nextLast++;
+        size++;
     }
+
     @Override
-    public List<T> toList() {
+    public void addFirst (T x) {
+        if (size == list.length) {
+            resize(size + 4, size);
+        }
+
+        add(1, 0, x);
+
+
+    }
+
+    @Override
+    public void addLast (T x) {
+        if (size == list.length) {
+            resize(size + 1, size);
+        }
+        add(0, nextLast, x);
+
+
+    }
+
+    @Override
+    public List<T> toList () {
         List<T> nList = new ArrayList<>();
-        if (nextFirst <= list.length - 1) {
-            for (int x = nextFirst - 1; x != list.length; x++) {
-                if (list[x] != null) {
-                    nList.add(list[x]);
-                }
+        if (size == 0) {
+            return nList;
+        } else {
+            for (int i = 0;i < size;i++) {
+                nList.add(list[i]);
             }
         }
 
-        if (nextLast != 0) {
-            for (int x = 0; x < nextFirst; x++) {
-                if (list[x] != null) {
-                    nList.add(list[x]);
-                }
-            }
-        }
+
         return nList;
     }
 
     @Override
-    public boolean isEmpty() {
+    public boolean isEmpty () {
         return size == 0;
     }
 
     @Override
-    public int size() {
+    public int size () {
         return size;
     }
 
+    public void remove (int idx, int size) {
+        T[] newL = (T[])new Object[list.length];
+        System.arraycopy(list, idx, newL, 0, size - 1);
+        list = newL;
+        resize(size - 1, size - 1);
+        nextLast--;
+        this.size--;
+    }
+
     @Override
-    public T removeFirst() {
-        if (nextFirst == list.length - 1) {
+    public T removeFirst () {
+        if (nextFirst == list.length) {
             return null;
         } else {
-            T item = list[nextFirst + 1];
-            list[nextFirst + 1] = null;
-            nextFirst++;
-
-            size--;
+            T item = list[0];
+            nextFirst = 0;
+            remove(1, size);
             return item;
         }
 
     }
 
     @Override
-    public T removeLast() {
+    public T removeLast () {
 
         if (nextLast == 0) {
             return null;
         } else {
             T item = list[nextLast - 1];
-            list[nextLast - 1] = null;
-            nextLast--;
-            size--;
-
+            remove(0, size);
             return item;
         }
     }
 
     @Override
-    public T get(int index) {
+    public T get (int index) {
         if (index >= size || index < 0) {
             return null;
         }
-        if(nextLast == 0){
-            return list[nextFirst - 1];
-        }
         return list[index];
     }
-}
 
+}
 

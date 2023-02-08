@@ -134,7 +134,6 @@ public class ArrayDequeTest {
             lld1.addLast('E');
             lld1.addLast('F');
 
-
             assertThat(lld1.get(3)).isEqualTo('D');
         }
 
@@ -406,8 +405,6 @@ public class ArrayDequeTest {
             person reading this test. Some programmers might consider this excessively verbose. */
         lld1.addLast('A');   // [A]
         lld1.removeLast();
-
-
 
         assertThat(lld1.size()).isEqualTo(0);
     }
