@@ -144,7 +144,9 @@ public class ArrayDeque<T> implements Deque<T> {
             return null;
         } else {
             T item = list[nextLast - 1];
-            remove(0, size);
+//            remove(0, size);
+            size--;
+            nextLast--;
             return item;
         }
     }

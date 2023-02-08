@@ -394,6 +394,29 @@ public class ArrayDequeTest {
 
     }
 
+    @Test
+    public void add_first_after_remove_to_empty() {
+        Deque<String> lld5 = new ArrayDeque<>();
+
+         /* I've decided to add in comments the state after each call for the convenience of the
+            person reading this test. Some programmers might consider this excessively verbose. */
+
+        lld5.addFirst("Matt");
+        lld5.addFirst("Matt");
+        lld5.addFirst("Matt");
+        lld5.addFirst("Matt");
+        lld5.addFirst("Matt");
+
+        lld5.removeFirst();
+        lld5.removeFirst();
+        lld5.removeFirst();
+        lld5.removeFirst();
+        lld5.removeFirst();
+
+        assertThat(lld5.toList()).isEmpty();
+
+    }
+
         @Test
         public void getOob_large() {
             Deque<Character> lld1 = new  ArrayDeque<>();
@@ -437,8 +460,8 @@ public class ArrayDequeTest {
         Deque<Character> lld1 = new  ArrayDeque<>();
          /* I've decided to add in comments the state after each call for the convenience of the
             person reading this test. Some programmers might consider this excessively verbose. */
-        lld1.addLast('A');
-        lld1.addLast('B');// [A]
+        lld1.addFirst('A');
+        lld1.addFirst('B');// [A]
         lld1.removeLast();
 
         assertThat(lld1.size()).isEqualTo(1);
@@ -472,6 +495,8 @@ public class ArrayDequeTest {
 
         assertThat(lld1.size()).isEqualTo(21);
     }
+
+
     }
 
 
