@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Math.round;
+
 
 public class ArrayDeque<T> implements Deque<T> {
 
@@ -18,9 +20,21 @@ public class ArrayDeque<T> implements Deque<T> {
         ad.addFirst('d');
         ad.removeLast();
         ad.removeLast();
+        for(int x = 100; x >= 0; x--){
+            ad.addFirst('e');
+            ad.addLast('p');
+        }
         ad.addFirst('e');
         ad.addFirst('f');
         ad.addLast('g');
+        ad.addLast('k');
+        ad.addLast('l');
+        ad.addLast('m');
+        ad.addLast('n');
+        ad.addLast('o');
+        ad.addLast('p');
+
+
         ad.removeFirst();
         ad.removeFirst();ad.removeFirst();
         ad.addLast('h');
@@ -53,6 +67,12 @@ public class ArrayDeque<T> implements Deque<T> {
     }
 
     public void add(int idx, int place, T value) {
+        if (size == list.length && list.length >= 8) {
+            if (list.length < 16) {
+                resize(16, size);
+            }
+            resize((int) round(size * 1.20), size);
+        }
         T[] newL = (T[])new Object[list.length];
         System.arraycopy(list, 0, newL, idx, size);
         newL[place] = value;
@@ -63,17 +83,11 @@ public class ArrayDeque<T> implements Deque<T> {
 
     @Override
     public void addFirst(T x) {
-        if (size == list.length) {
-            resize(size + 4, size);
-        }
         add(1, 0, x);
     }
 
     @Override
     public void addLast(T x) {
-        if (size == list.length) {
-            resize(size + 1, size);
-        }
         add(0, nextLast, x);
     }
 
@@ -106,7 +120,9 @@ public class ArrayDeque<T> implements Deque<T> {
         T[] newL = (T[])new Object[list.length];
         System.arraycopy(list, idx, newL, 0, size - 1);
         list = newL;
-        resize(size - 1, size - 1);
+        if ((list.length - size) > round(size * 1.20) && list.length >= 16) {
+            resize((int) round(size * 1.20), size - 1);
+        }
         nextLast--;
         this.size--;
     }

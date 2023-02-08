@@ -371,6 +371,29 @@ public class ArrayDequeTest {
 
         }
 
+    @Test
+    public void add_last_after_remove_to_empty() {
+        Deque<String> lld5 = new ArrayDeque<>();
+
+         /* I've decided to add in comments the state after each call for the convenience of the
+            person reading this test. Some programmers might consider this excessively verbose. */
+
+        lld5.addLast("Matt");
+        lld5.addLast("Matt");
+        lld5.addLast("Matt");
+        lld5.addLast("Matt");
+        lld5.addLast("Matt");
+
+        lld5.removeLast();
+        lld5.removeLast();
+        lld5.removeLast();
+        lld5.removeLast();
+        lld5.removeLast();
+
+        assertThat(lld5.toList()).isEmpty();
+
+    }
+
         @Test
         public void getOob_large() {
             Deque<Character> lld1 = new  ArrayDeque<>();
@@ -421,7 +444,34 @@ public class ArrayDequeTest {
         assertThat(lld1.size()).isEqualTo(1);
     }
 
+    @Test
+    public void remove_first_trigger_resize() {
+        Deque<Character> lld1 = new  ArrayDeque<>();
+         /* I've decided to add in comments the state after each call for the convenience of the
+            person reading this test. Some programmers might consider this excessively verbose. */
+        for(int x = 20; x >= 0; x--){
+            lld1.addLast('A');
+        }
 
+        for(int x = 10; x >= 0; x--){
+            lld1.removeFirst();
+        }
+
+        assertThat(lld1.size()).isEqualTo(10);
+    }
+
+    @Test
+    public void add_first_trigger_resize() {
+        Deque<Integer> lld1 = new ArrayDeque<>();
+         /* I've decided to add in comments the state after each call for the convenience of the
+            person reading this test. Some programmers might consider this excessively verbose. */
+        for(int x = 20; x >= 0; x--){
+            lld1.addFirst(x);
+        }
+
+
+        assertThat(lld1.size()).isEqualTo(21);
+    }
     }
 
 
