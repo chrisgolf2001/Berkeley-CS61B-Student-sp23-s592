@@ -59,36 +59,59 @@ public class ArrayDeque<T> implements Deque<T> {
         nextLast = 0;
     }
 
-    public void resize(int cap, int nSize) {
+    public void resize(int cap) {
 
         T[] newL = (T[])new Object[cap];
-        System.arraycopy(list, 0, newL, 0, nSize);
+        System.arraycopy(list, nextFirst, newL, 0, size);
         list = newL;
+        nextFirst = 0;
+        nextLast = size - 1;
     }
 
-    public void add(int idx, int place, T value) {
-        if (size == list.length && list.length >= 8) {
-            if (list.length < 16) {
-                resize(16, size);
-            }
-            resize((int) round(size * 1.20), size);
-        }
+    public void add(T value) {
+
         T[] newL = (T[])new Object[list.length];
-        System.arraycopy(list, 0, newL, idx, size);
-        newL[place] = value;
+        System.arraycopy(list, 0, newL, 1, size);
+        newL[nextFirst] = value;
         list = newL;
-        nextLast++;
         size++;
     }
 
     @Override
     public void addFirst(T x) {
-        add(1, 0, x);
+        if (size == list.length && list.length >= 8) {
+            if (list.length < 16) {
+                resize(16);
+            }
+            resize((int) round(size * 1.20));
+        }
+
+            nextFirst--;
+        if (nextFirst == -1){
+            nextFirst = 0;
+            nextLast++;
+            add(x);
+        }else{
+            list[nextFirst] = x;
+            nextFirst--;
+            nextLast++;
+            size++;
+        }
+
     }
 
     @Override
     public void addLast(T x) {
-        add(0, nextLast, x);
+        if (size == list.length && list.length >= 8) {
+            if (list.length < 16) {
+                resize(16);
+            }
+            resize((int) round(size * 1.20));
+        }
+
+        list[nextLast] = x;
+        nextLast++;
+        size++;
     }
 
     @Override
@@ -98,7 +121,9 @@ public class ArrayDeque<T> implements Deque<T> {
             return nList;
         } else {
             for (int i = 0; i < size; i++) {
-                nList.add(list[i]);
+                if(list[i] != null) {
+                    nList.add(list[i]);
+                }
             }
         }
         return nList;
@@ -111,42 +136,43 @@ public class ArrayDeque<T> implements Deque<T> {
 
     @Override
     public int size() {
-
         return size;
-
     }
 
-    public void remove(int idx, int size) {
-        T[] newL = (T[])new Object[list.length];
-        System.arraycopy(list, idx, newL, 0, size - 1);
-        list = newL;
-        if (list.length  > round(size * 1.20)) {
-            resize((int) round(size * 1.20), size - 1);
-        }
-        nextLast--;
-        this.size--;
-    }
 
     @Override
     public T removeFirst() {
-        if (nextFirst == list.length) {
+        if (size == 0) {
             return null;
-        } else {
-            T item = list[0];
-            remove(1, size);
-            return item;
         }
+        T item = list[nextFirst];
+
+        if (list.length  > round(size * 1.20) && list.length > 8) {
+            resize(size);
+        }
+        nextFirst++;
+        list[nextFirst - 1] = null;
+        size--;
+
+        return item;
+
     }
 
     @Override
     public T removeLast() {
-        if (nextLast == 0) {
+        if (size == 0) {
             return null;
-        } else {
-            T item = list[nextLast - 1];
-            remove(0, size);
-            return item;
         }
+        T item = list[nextLast - 1];
+
+        if (list.length  > round(size * 1.20) & list.length >= 16) {
+            resize((int) round(size * 1.20));
+        }
+
+        list[nextLast - 1] = null;
+        nextLast--;
+        this.size--;
+        return item;
     }
 
     @Override
