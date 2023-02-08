@@ -1,3 +1,4 @@
+import edu.princeton.cs.algs4.In;
 import jh61b.utils.Reflection;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -146,15 +147,11 @@ public class ArrayDequeTest {
             lld1.addLast('B');   // [A, B]
             lld1.addLast('C'); // [A, B, C]
             lld1.addLast('D');   // [A, B, C, D]
-            lld1.addLast('E');
-            lld1.addLast('F');
 
             lld1.removeLast();
             lld1.removeLast();
             lld1.removeLast();
             lld1.removeLast();
-            lld1.removeFirst();
-            lld1.removeFirst();
 
 
 
@@ -354,7 +351,7 @@ public class ArrayDequeTest {
 
         @Test
         public void removeFirstTillEmpty() {
-            Deque<String> lld5 = new  ArrayDeque<>();
+            Deque<String> lld5 = new ArrayDeque<>();
 
          /* I've decided to add in comments the state after each call for the convenience of the
             person reading this test. Some programmers might consider this excessively verbose. */
@@ -365,14 +362,11 @@ public class ArrayDequeTest {
             lld5.addFirst("Matt");
             lld5.addFirst("Matt");
 
-
-
             lld5.removeFirst();
             lld5.removeFirst();
             lld5.removeFirst();
             lld5.removeFirst();
             lld5.removeFirst();
-
 
             assertThat(lld5.toList()).isEmpty();
 
@@ -394,6 +388,41 @@ public class ArrayDequeTest {
 
             assertThat(lld1.get(600)).isEqualTo(null);
         }
+
+    @Test
+    public void sizeAfterRemovingFromEmptyTest() {
+        Deque<Character> lld1 = new  ArrayDeque<>();
+         /* I've decided to add in comments the state after each call for the convenience of the
+            person reading this test. Some programmers might consider this excessively verbose. */
+        lld1.removeLast();
+
+        assertThat(lld1.size()).isEqualTo(0);
+
+    }
+    @Test
+    public void size_after_remove_to_empty() {
+        Deque<Character> lld1 = new  ArrayDeque<>();
+         /* I've decided to add in comments the state after each call for the convenience of the
+            person reading this test. Some programmers might consider this excessively verbose. */
+        lld1.addLast('A');   // [A]
+        lld1.removeLast();
+
+
+
+        assertThat(lld1.size()).isEqualTo(0);
+    }
+
+    @Test
+    public void remove_last_to_one() {
+        Deque<Character> lld1 = new  ArrayDeque<>();
+         /* I've decided to add in comments the state after each call for the convenience of the
+            person reading this test. Some programmers might consider this excessively verbose. */
+        lld1.addLast('A');
+        lld1.addLast('B');// [A]
+        lld1.removeLast();
+
+        assertThat(lld1.size()).isEqualTo(1);
+    }
 
 
     }

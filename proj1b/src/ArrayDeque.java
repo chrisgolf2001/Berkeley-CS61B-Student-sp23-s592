@@ -1,8 +1,6 @@
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static java.lang.Math.abs;
 import static java.lang.Math.round;
 
 public class ArrayDeque<T> implements Deque<T> {
@@ -36,8 +34,14 @@ public class ArrayDeque<T> implements Deque<T> {
         ad.addLast('G');
         ad.addLast('H');
 
-        System.out.println (ad.toList());
+        System.out.println(ad.toList());
 
+        Deque<Integer> lld2 = new ArrayDeque<>();
+
+        lld2.addFirst(0);
+        lld2.addLast(1);
+        lld2.removeLast();
+        lld2.get(0);
     }
 
     public ArrayDeque() {
@@ -51,7 +55,7 @@ public class ArrayDeque<T> implements Deque<T> {
         T[] newL = (T[]) new Object[cap];
 
         System.arraycopy(list, nextLast, newL, 0, size - nextLast);
-        System.arraycopy(list, 0, newL,size - nextFirst - 1, nextLast);
+        System.arraycopy(list, 0, newL, size - nextFirst - 1, nextLast);
         list = newL;
         nextFirst = list.length - 1;
         nextLast = size;
@@ -61,8 +65,9 @@ public class ArrayDeque<T> implements Deque<T> {
 
     @Override
     public void addFirst(T x) {
+        double ratio = 1.20;
         if (size == list.length) {
-            resize(Integer.valueOf((int) round(size * 1.20)));
+            resize(Integer.valueOf((int) round(size * ratio)));
         }
 
         size++;
@@ -91,14 +96,13 @@ public class ArrayDeque<T> implements Deque<T> {
             }
         }
 
-        if(nextLast != 0) {
+        if (nextLast != 0) {
             for (int x = 0; x < nextFirst; x++) {
                 if (list[x] != null) {
                     nList.add(list[x]);
                 }
             }
         }
-
         return nList;
     }
 
@@ -108,42 +112,47 @@ public class ArrayDeque<T> implements Deque<T> {
     }
 
     @Override
-    public int size(){
+    public int size() {
         return size;
     }
 
     @Override
     public T removeFirst() {
-        size--;
-
         if (nextFirst == list.length - 1) {
             return null;
         } else {
             T item = list[nextFirst + 1];
             list[nextFirst + 1] = null;
             nextFirst++;
+
+            size--;
             return item;
         }
+
     }
 
     @Override
     public T removeLast() {
-        size--;
+
         if (nextLast == 0) {
             return null;
         } else {
             T item = list[nextLast - 1];
             list[nextLast - 1] = null;
             nextLast--;
+            size--;
+
             return item;
         }
-
     }
 
     @Override
     public T get(int index) {
         if (index >= size || index < 0) {
             return null;
+        }
+        if(nextLast == 0){
+            return list[nextFirst - 1];
         }
         return list[index];
     }
